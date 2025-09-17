@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
-import frc.robot.commands.compoundCommands.PositionFromDash;
 import frc.robot.libs.NetworkTables;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -169,17 +168,6 @@ public class Controller extends SubsystemBase {
       return;
     }
 
-    if (primaryController.getAButtonPressed()) {
-      new PositionFromDash(NetworkTables.dashCoralLoc.getString("L_4"), true).schedule();
-    }
-
-    if (primaryController.getBButtonPressed()) {
-      // new
-      // PositionAndScoreCoral(PositionAndScoreCoral.Position.valueOf(NetworkTables.dashCoralLoc.getString("L_4")),
-      // -1)
-      // .schedule();
-      new PositionFromDash(NetworkTables.dashCoralLoc.getString("L_4"), false).schedule();
-    }
   }
 
   private void ManualMode() {

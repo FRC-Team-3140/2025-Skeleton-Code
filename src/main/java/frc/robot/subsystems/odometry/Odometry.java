@@ -130,5 +130,4 @@ abstract public class Odometry extends SubsystemBase {
 
   abstract public void updatePosition(SwerveModulePosition[] positions);
 
-  //abstract public void updateSimulatedPosition(SwerveModulePosition[] positions, double gyroAngleRad);
 }

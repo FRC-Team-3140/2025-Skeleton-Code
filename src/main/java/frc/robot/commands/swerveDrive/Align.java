@@ -71,10 +71,8 @@ public class Align extends SequentialCommandGroup {
     @Override
     public void initialize() {
       if (targetPose == null) {
-        targetPose = FieldAprilTags.getInstance().getTagPose(
-            FieldAprilTags.getInstance().getClosestReefAprilTag(
-                Odometry.getInstance().getPose(),
-                DriverStation.getAlliance().orElse(DriverStation.Alliance.Blue)).aprilTag.ID);
+        System.out.print("Where am I suppose to go??");
+        this.cancel();
       }
 
       xPID.setSetpoint(targetPose.getX());
@@ -96,8 +94,6 @@ public class Align extends SequentialCommandGroup {
       double driveX = xPID.calculate(currentPose.getX());
       double driveY = yPID.calculate(currentPose.getY());
       double driveTheta = thetaPID.calculate(odometry.getRotation().getRadians());
-      System.out.println("Driving to " + thetaPID.getSetpoint() + " from " + odometry.getRotation().getRadians()
-          + " by driving: " + driveTheta);
       swerveDrive.drive(driveX, driveY, driveTheta, true);
     }
 
@@ -108,6 +104,7 @@ public class Align extends SequentialCommandGroup {
 
     @Override
     public boolean isFinished() {
+      // This is painful, I don't know what I did. I don't have the willpower to refactor.
       if (startTime + 1 > Timer.getFPGATimestamp())
         return false;
       if (startTime + maxDuration < Timer.getFPGATimestamp())

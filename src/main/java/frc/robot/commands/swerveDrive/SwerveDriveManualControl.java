@@ -45,38 +45,33 @@ public class SwerveDriveManualControl extends LoggedCommand {
      */
     @Override
     public void execute() {
-        if ((controller.primaryController.getLeftStickButtonPressed()
-                && controller.primaryController.getRightStickButtonPressed())
-                || (locked && ((Math.abs(controller.primaryController.getLeftX()) > movementThreshold)
-                        || (Math.abs(controller.primaryController.getLeftY()) > movementThreshold)
-                        || (Math.abs(controller.primaryController.getRightX()) > movementThreshold)))) {
-            locked = !locked;
+                                                            // AAAHHH
+        if ((controller.primaryController.getLeftStickButtonPressed() // HHHH
+                && controller.primaryController.getRightStickButtonPressed()) // HHHHH
+                || (locked && ((Math.abs(controller.primaryController.getLeftX()) > movementThreshold) // HHHHH
+                        || (Math.abs(controller.primaryController.getLeftY()) > movementThreshold) // HHHHHH
+                        || (Math.abs(controller.primaryController.getRightX()) > movementThreshold)))) { // HHHHH
+            locked = !locked;                                                                           // HHHH!!
         }
 
         if (controller.primaryController.getBackButtonPressed())
             fieldRelative = !fieldRelative;
 
         if (!locked) {
+            double multiplier =
+                controller.primaryController.getRightTriggerAxis() > Constants.Controller.triggerThreshold ? 1 : 0.5;
+
             // Calculate the x speed based on the joystick input
-            final double xSpeed = controller.primaryController
-                    .getRightTriggerAxis() > Constants.Controller.triggerThreshold
-                            ? -controller.getLeftY(Controller.controllers.PRIMARY) * maxSpeed * 0.5
-                            : -controller.getLeftY(Controller.controllers.PRIMARY) * maxSpeed;
+            final double xSpeed = -controller.getLeftY(Controller.controllers.PRIMARY) * maxSpeed * multiplier;
 
             // Calculate the y speed based on the joystick input
-            final double ySpeed = controller.primaryController
-                    .getRightTriggerAxis() > Constants.Controller.triggerThreshold
-                            ? -controller.getLeftX(Controller.controllers.PRIMARY) * maxSpeed * 0.5
-                            : -controller.getLeftX(Controller.controllers.PRIMARY) * maxSpeed;
+            final double ySpeed = -controller.getLeftX(Controller.controllers.PRIMARY) * maxSpeed * multiplier;
 
             // Calculate the rotation speed based on the joystick input
-            final double rot = controller.primaryController
-                    .getRightTriggerAxis() > Constants.Controller.triggerThreshold
-                            ? -controller.getRightX(Controller.controllers.PRIMARY) * maxChassisTurnSpeed * 0.5
-                            : -controller.getRightX(Controller.controllers.PRIMARY) * maxChassisTurnSpeed;
+            final double rot =  -controller.getRightX(Controller.controllers.PRIMARY) * maxChassisTurnSpeed * multiplier;
+
             int driveNegation = (((DriverStation.getAlliance().get() == DriverStation.Alliance.Red) && fieldRelative)
-                    ? -1
-                    : 1);
+                    ? -1 : 1);
             swerveDrive.drive(xSpeed * driveNegation, ySpeed * driveNegation, rot, fieldRelative); // Drive the swerve
                                                                                                    // drive
         } else {
