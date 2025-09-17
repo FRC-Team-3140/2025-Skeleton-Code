@@ -174,8 +174,8 @@ public class PoseOdometry extends Odometry {
         estimator.update(getGyroRotation(), positions);
     }
 
-    @Override
     public void updateSimulatedPosition(SwerveModulePosition[] positions, double gyroAngleRad) {
+        
         if (estimator == null) {
             estimator = new SwerveDrivePoseEstimator(
                     SwerveDrive.getInstance().kinematics,

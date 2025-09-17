@@ -186,8 +186,4 @@ public class CustomOdometry extends Odometry {
         position = position.add(delta);
     }
 
-    @Override
-    public void updateSimulatedPosition(SwerveModulePosition[] positions, double gyroAngleRad) {
-        // TODO: I'm too lazy to figure out how this works right now :) - TK
-    }
 }

@@ -111,32 +111,11 @@ public class SwerveModule extends SubsystemBase {
         }
     }
 
-    // scales the maximum acceleration of the robot based on the height of the
-    // elevator to prevent toppling
-    private double CalculateAccelScale(double elevHeight) {
-        double minHeight = Constants.ElevatorHeights.minimum;
-        double maxHeight = Constants.ElevatorHeights.maximum;
-        double minAccelScale = 0.35;
-        double height = Math.min(Math.max(elevHeight, minHeight), maxHeight);
-        double mappedHeight = (height - minHeight) / (maxHeight - minHeight); // the height remapped from 0-1 (min to
-                                                                              // max)
-        double scale = 1 - (mappedHeight) * (1 - minAccelScale);
-        return scale;
-    }
-
     // runs while the bot is running
     @Override
     public void periodic() {
         // setAngle(0);
         // turnPID.calculate(getTurnEncoder().getAbsolutePosition());
-        if (Elevator.getInstance().isMoving()) {
-            double scale = CalculateAccelScale(Elevator.getInstance().getHeight());
-            accelerationLimiter = new SlewRateLimiter(Constants.Bot.maxAcceleration * scale,
-                    -Constants.Bot.maxAcceleration * scale, 0);
-            constraints = new TrapezoidProfile.Constraints(Constants.Bot.maxChassisSpeed,
-                    Constants.Bot.maxAcceleration * scale);
-            drivePID.setConstraints(constraints);
-        }
         NetworkTableInstance.getDefault().getTable("Angle").getEntry(moduleID)
                 .setDouble(turnEncoder.getAbsolutePosition());
     }
