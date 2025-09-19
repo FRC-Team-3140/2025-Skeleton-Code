@@ -29,7 +29,7 @@ abstract public class Odometry extends SubsystemBase {
   /** Creates a new Odometry. */
   public static Odometry getInstance() {
     if (inst == null) {
-      inst = new PoseOdometry();
+      inst = new CustomOdometry();
     }
     return inst;
   }
